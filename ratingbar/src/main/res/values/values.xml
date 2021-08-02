@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomRatingBar">
+        <attr name="starColor" format="color|reference" />
+        <attr name="subStarColor" format="color|reference" />
+        <attr name="bgColor" format="color|reference" />
+        <attr name="starDrawable" format="reference" />
+        <attr name="bgDrawable" format="reference" />
+        <attr name="keepOriginColor" format="boolean" />
+        <attr name="scaleFactor" format="float" />
+        <attr name="starSpacing" format="dimension" />
+        <attr name="right2Left" format="boolean" />
+    </declare-styleable>
+</resources>
