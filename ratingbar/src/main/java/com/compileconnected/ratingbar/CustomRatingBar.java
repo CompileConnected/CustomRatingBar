@@ -15,6 +15,12 @@ public class CustomRatingBar extends androidx.appcompat.widget.AppCompatRatingBa
 
     private ColorStateList mBgColor;
 
+    private int mStarDrawable;
+
+    private int mBgDrawable;
+
+    private boolean mKeepOriginColor;
+
     private float scaleFactor;
 
     private float starSpacing;
@@ -42,48 +48,40 @@ public class CustomRatingBar extends androidx.appcompat.widget.AppCompatRatingBa
     }
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr) {
-        final TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.CustomRatingBar, defStyleAttr, 0);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.CustomRatingBar, defStyleAttr, 0);
         this.right2Left = typedArray.getBoolean(R.styleable.CustomRatingBar_right2Left, false);
-        final boolean hasStarColor = typedArray.hasValue(R.styleable.CustomRatingBar_starColor);
-        final boolean hasBgColor = typedArray.hasValue(R.styleable.CustomRatingBar_bgColor);
-
-        if (hasBgColor) {
-            final ColorStateList a = typedArray.getColorStateList(R.styleable.CustomRatingBar_bgColor);
+        if (typedArray.hasValue(R.styleable.CustomRatingBar_starColor))
             if (this.right2Left) {
-                this.mStarColor = a;
+                this.mBgColor = typedArray.getColorStateList(R.styleable.CustomRatingBar_starColor);
             } else {
-                this.mBgColor = a;
+                this.mStarColor = typedArray.getColorStateList(R.styleable.CustomRatingBar_starColor);
             }
-        } else if (hasStarColor) {
-            final ColorStateList a = typedArray.getColorStateList(R.styleable.CustomRatingBar_starColor);
-            if (this.right2Left) {
-                this.mBgColor = a;
-            } else {
-                this.mStarColor = a;
-            }
-        }
 
-        if (typedArray.hasValue(R.styleable.CustomRatingBar_subStarColor) && !this.right2Left) {
+        if (typedArray.hasValue(R.styleable.CustomRatingBar_subStarColor) &&
+                !this.right2Left)
             this.mSubStarColor = typedArray.getColorStateList(R.styleable.CustomRatingBar_subStarColor);
-        }
 
-        final boolean mKeepOriginColor = typedArray.getBoolean(R.styleable.CustomRatingBar_keepOriginColor, false);
+        if (typedArray.hasValue(R.styleable.CustomRatingBar_bgColor))
+            if (this.right2Left) {
+                this.mStarColor = typedArray.getColorStateList(R.styleable.CustomRatingBar_bgColor);
+            } else {
+                this.mBgColor = typedArray.getColorStateList(R.styleable.CustomRatingBar_bgColor);
+            }
+        this.mKeepOriginColor = typedArray.getBoolean(R.styleable.CustomRatingBar_keepOriginColor, false);
         this.scaleFactor = typedArray.getFloat(R.styleable.CustomRatingBar_scaleFactor, 1.0F);
         this.starSpacing = typedArray.getDimension(R.styleable.CustomRatingBar_starSpacing, 0.0F);
-        final int mStarDrawable = typedArray.getResourceId(R.styleable.CustomRatingBar_starDrawable, R.drawable.ic_rating_star_solid);
-        final int mBgDrawable;
+        this.mStarDrawable = typedArray.getResourceId(R.styleable.CustomRatingBar_starDrawable, R.drawable.ic_rating_star_solid);
         if (typedArray.hasValue(R.styleable.CustomRatingBar_bgDrawable)) {
-            mBgDrawable = typedArray.getResourceId(R.styleable.CustomRatingBar_bgDrawable, R.drawable.ic_rating_star_solid);
+            this.mBgDrawable = typedArray.getResourceId(R.styleable.CustomRatingBar_bgDrawable, R.drawable.ic_rating_star_solid);
         } else {
-            mBgDrawable = mStarDrawable;
+            this.mBgDrawable = this.mStarDrawable;
         }
         typedArray.recycle();
-        this.mDrawable = new StarDrawable(context, mStarDrawable, mBgDrawable, mKeepOriginColor);
+        this.mDrawable = new StarDrawable(context, this.mStarDrawable, this.mBgDrawable, this.mKeepOriginColor);
         this.mDrawable.setStarCount(getNumStars());
-        setProgressDrawable(this.mDrawable);
-        if (this.right2Left) {
+        setProgressDrawable((Drawable)this.mDrawable);
+        if (this.right2Left)
             setRating(getNumStars() - getRating());
-        }
     }
 
     @Override

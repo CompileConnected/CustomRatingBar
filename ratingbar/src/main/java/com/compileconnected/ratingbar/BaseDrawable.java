@@ -113,7 +113,7 @@ abstract class BaseDrawable extends Drawable {
         return this.mConstantState;
     }
 
-    private final  class ConstantState extends Drawable.ConstantState {
+    private final class ConstantState extends Drawable.ConstantState {
         public int getChangingConfigurations() {
             return 0;
         }
