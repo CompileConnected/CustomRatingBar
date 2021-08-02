@@ -1,5 +1,6 @@
 package com.compileconnected.ratingbar;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
@@ -7,8 +8,10 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.RatingBar;
 
-public class CustomRatingBar extends androidx.appcompat.widget.AppCompatRatingBar {
+@SuppressLint("AppCompatCustomView")
+public class CustomRatingBar extends RatingBar {
     private ColorStateList mStarColor;
 
     private ColorStateList mSubStarColor;
