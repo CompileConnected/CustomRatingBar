@@ -12,4 +12,7 @@
 /captures
 .externalNativeBuild
 .cxx
+.idea
+.idea/.name
+ratingbar/libs
 local.properties
